@@ -16,5 +16,7 @@ class AnimalTableSeeder extends Seeder
         $a = new Animal;
         $a->name = "Holly";
         $a->save();
+
+        Animal::factory()->count(10)->create();
     }
 }
