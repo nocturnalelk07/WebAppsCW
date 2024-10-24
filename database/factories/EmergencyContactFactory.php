@@ -24,7 +24,7 @@ class EmergencyContactFactory extends Factory
         return [
         "name" => fake()->name(),
         "phone_number" =>fake()->randomNumber(),
-        "animal_id" => self::$order++
+        "animal_id" => self::$order++,
         ];
     }
 }
