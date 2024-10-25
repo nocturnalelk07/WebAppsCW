@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Animal extends Model
 {
-    /** @use HasFactory<\Database\Factories\AnimalFactory> */
     use HasFactory;
+
+    public function emergencyContact()
+    {
+        return $this->hasOne(EmergencyContact::class);
+    }
 }
