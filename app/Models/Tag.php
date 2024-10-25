@@ -8,8 +8,8 @@ class Tag extends Model
 {
     use has factory;
 
-    public function post() 
+    public function posts()
     {
-        return $table->belongsTo(Post::class);
+        return $this->belongsToMany(post::class);
     }
 }

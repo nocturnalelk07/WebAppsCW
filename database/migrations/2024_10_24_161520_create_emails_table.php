@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('emails', function (Blueprint $table) {
             $table->id();
             $table->string("email")->unique();
-            $table->string("user_id")->unique();
+            $table->bigInteger("user_id")->unsigned()->unique();
 
             $table->foreign("user_id")->references("id")->on("users")
             ->onDelete("cascade")->onUpdate("cascade");
