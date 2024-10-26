@@ -23,10 +23,10 @@ class DatabaseSeeder extends Seeder
         comments might need to remove ability to reply to comments tbh
         */
         
-        $this->call(UserTableSeeder::class);
-        $this->call(EmailTableSeeder::class);
-        $this->call(TagTableSeeder::class);
-        $this->call(PostTableSeeder::class);
+        $this->call(UserTableSeeder::class); //done
+        $this->call(EmailTableSeeder::class); //done
+        $this->call(TagTableSeeder::class); //done
+        $this->call(PostTableSeeder::class); //done
         $this->call(CommentTableSeeder::class);
 
 //        $this->call(AnimalTableSeeder::class);

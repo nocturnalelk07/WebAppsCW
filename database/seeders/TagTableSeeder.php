@@ -16,5 +16,8 @@ class TagTableSeeder extends Seeder
         $t = new Tag;
         $t->tag_name = "funny";
         $t->save();
+
+        //maximum number of tags is determined by how many are in the factory array
+        Tag::factory()->count(4)->create();
     }
 }
