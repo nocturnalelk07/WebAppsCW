@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,8 +17,10 @@ class EmailFactory extends Factory
      */
     public function definition(): array
     {
+        $userCount = User::count();
         return [
-            //
+            "email" => fake()->safeEmail(),
+            "user_id" => fake()->unique()->numberBetween(2,$userCount),
         ];
     }
 }

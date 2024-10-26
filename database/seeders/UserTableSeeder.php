@@ -18,6 +18,6 @@ class UserTableSeeder extends Seeder
         $u->password = "passWord(verySafe)";
         $u->save();
 
-        //User::factory()->count(10)->create();
+        User::factory()->count(10)->create();
     }
 }
