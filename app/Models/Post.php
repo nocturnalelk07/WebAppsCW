@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Post extends Model
 {
-    use has factory;
+    use HasFactory;
 
     public function comments()
     {

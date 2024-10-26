@@ -18,6 +18,6 @@ class EmailTableSeeder extends Seeder
         $e->user_id = 1; //test user hard coded
         $e->save();
 
-        Email::factory()->count(10)->create();
+        Email::factory()->count(50)->create();
     }
 }
