@@ -2,10 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Email;
-use App\Models\Post;
-use App\Models\Comment;
-
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class User extends Model

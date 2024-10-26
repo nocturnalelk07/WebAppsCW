@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Comment extends Model
 {
@@ -17,7 +18,7 @@ class Comment extends Model
     {
         return $this->belongsTo(Post::class);
     }
-
+/*
     public function comments()
     {
         return $this->hasMany(Comment::class);
@@ -27,4 +28,5 @@ class Comment extends Model
     {
         return $this->belongsTo(Comment::class);
     }
+        */
 }
