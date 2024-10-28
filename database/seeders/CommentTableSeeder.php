@@ -18,6 +18,7 @@ class CommentTableSeeder extends Seeder
         $c->contains_image = false;
         $c->comment_text = "op is probably a bot";
         $c->user_id = 1;
+        $c->post_id = 1;
         $c->save();
 
         Comment::factory()->count(10)->create();

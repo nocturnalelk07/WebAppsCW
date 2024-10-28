@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\User;
+use App\Models\Post;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -23,6 +24,7 @@ class CommentFactory extends Factory
         "contains_image" => !is_null($image),
         "comment_text" => fake()->paragraph(fake()->numberBetween(1,2), true),
         "user_id" => fake()->numberBetween(2,User::count()),
+        "post_id" => fake()->numberBetween(2,Post::count()),
         ];
     }
 }
