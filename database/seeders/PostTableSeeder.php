@@ -20,9 +20,9 @@ class PostTableSeeder extends Seeder
         $p->post_text = "this is the text on my post";
         $p->user_id = 1; // made by bob
         $p->save();
-        $p->tags()->attach(1);
-        $p->tags()->attach(4);
+        //$p->tags()->attach(1);
+        //$p->tags()->attach(4);
 
-        Post::factory()->count(70)->create();
+        Post::factory()->count(50)->create();
     }
 }

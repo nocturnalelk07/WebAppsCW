@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -21,8 +22,7 @@ class PostFactory extends Factory
         return [
             "image_location" =>$image,
             "contains_image" => !is_null($image),
-            //"post_title" => fake()->sentence(fake()->numberBetween(4,8), true),
-            "post_title" =>fake()->name(),
+            "post_title" => fake()->sentence(fake()->numberBetween(2,3), true),
             "post_text" => fake()->paragraph(fake()->numberBetween(1,2), true),
             "user_id" => fake()->numberBetween(2,User::count()),
         ];
