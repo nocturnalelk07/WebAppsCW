@@ -27,7 +27,7 @@ class CommentFactory extends Factory
         "contains_image" => !is_null($image),
         "comment_text" => fake()->paragraph(fake()->numberBetween(1,2), true),
         "user_id" => fake()->numberBetween(1,User::count()),
-        "post_id" => $post_id,
+        "post_id" => fake()->numberBetween(1,Post::count()),
         ];
     }
 }
