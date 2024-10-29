@@ -18,8 +18,11 @@ class EmailFactory extends Factory
      */
     public function definition(): array
     {
-        //if i didnt want to use email as an example of a 1 to 1 relationship it would be in the user table as there isnt much need for it to be seperate
-        //seeded user example will already have an email example and therefore doesn't need an email generated for it, so start from 2
+        //if i didnt want to use email as an example of a 1 to 1 relationship it would be
+        //in the user table as there isnt much need for it to be seperate.
+
+        //seeded user example will already have an email example and therefore doesn't
+        //need an email generated for it, so start from 2.
         static $number_of_example_emails_plus_one = 2;
         return [
             "email" => fake()->safeEmail(),
