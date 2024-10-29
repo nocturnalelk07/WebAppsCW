@@ -24,8 +24,6 @@ return new class extends Migration
             ->onDelete("cascade")->onUpdate("cascade");
             $table->foreign("post_id")->references("id")->on("posts")
             ->onDelete("cascade")->onUpdate("cascade");
-            $table->foreign("comment_id")->references("id")->on("comments")
-            ->onDelete("cascade")->onUpdate("cascade");
         });
     }
 
