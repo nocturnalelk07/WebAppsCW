@@ -15,30 +15,18 @@ class DatabaseSeeder extends Seeder
      * Seed the application's database.
      */
     public function run(): void
-    {
-        /*
-        order should be:
-        user
-        email
-        tags
-        posts
-        comments might need to remove ability to reply to comments tbh
-        */
-        
-        $this->call(UserTableSeeder::class); //done
-        $this->call(EmailTableSeeder::class); //done
-        $this->call(TagTableSeeder::class); //done
-        $this->call(PostTableSeeder::class); //done (finish factory)
-        $this->call(CommentTableSeeder::class); //TODO
-        //populate post tag pivot table
+    {   
+        $this->call(UserTableSeeder::class);
+        $this->call(EmailTableSeeder::class);
+        $this->call(TagTableSeeder::class);
+        $this->call(PostTableSeeder::class);
+        $this->call(CommentTableSeeder::class);
+
+        //this populates the post_tag pivot table giving each post 1-3 tags randomly
         $tags = Tag::all();
         Post::all()->each(function($post) use($tags)
         {
           $post->tags()->attach($tags->random(rand(1,3))->pluck("id")->toArray());
         });
-        
-
-//        $this->call(AnimalTableSeeder::class);
-  //      $this->call(EmergencyContactTableSeeder::class);
     }
 }
