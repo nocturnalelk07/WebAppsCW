@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string("comment_text")->nullable();
             $table->bigInteger("user_id")->unsigned();
             $table->bigInteger("post_id")->unsigned();
-            $table->bigInteger("comment_id")->unsigned()->nullable();
             $table->timestamps();
 
             $table->foreign("user_id")->references("id")->on("users")

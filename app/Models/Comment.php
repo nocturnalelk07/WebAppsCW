@@ -18,14 +18,4 @@ class Comment extends Model
     {
         return $this->belongsTo(Post::class);
     }
-
-    public function comments()
-    {
-        return $this->hasMany(Comment::class);
-    }
-
-    public function comment()
-    {
-        return $this->belongsTo(Comment::class);
-    }
 }

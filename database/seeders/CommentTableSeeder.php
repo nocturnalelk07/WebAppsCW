@@ -20,17 +20,6 @@ class CommentTableSeeder extends Seeder
         $c->user_id = 1;
         $c->post_id = 1;
         $c->save();
-
-        /*
-        $c = new Comment;
-        $c->image_location = null;
-        $c->contains_image = false;
-        $c->comment_text = "nah id win";
-        $c->user_id = 1;
-        $c->post_id = 2;
-        $c->comment_id = 1;
-        $c->save();
-*/
         Comment::factory()->count(10)->create();
     }
 }
