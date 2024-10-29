@@ -18,7 +18,7 @@ class EmailTableSeeder extends Seeder
         $e->user_id = 1; //test user hard coded
         $e->save();
 
-        //count should obviously stay the same as the factory for user
+        //count should always stay the same as the factory for user for one to one relationship
         Email::factory()->count(50)->create();
     }
 }
