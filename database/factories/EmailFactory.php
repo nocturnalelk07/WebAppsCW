@@ -18,12 +18,12 @@ class EmailFactory extends Factory
      */
     public function definition(): array
     {
-        //seeded user examples will already have email examples and dont need an email generated
-        static $number_of_example_emails = 2;
+        //if i didnt want to use email as an example of a 1 to 1 relationship it would be in the user table as there isnt much need for it to be seperate
+        //seeded user example will already have an email example and therefore doesn't need an email generated for it, so start from 2
+        static $number_of_example_emails_plus_one = 2;
         return [
             "email" => fake()->safeEmail(),
-            
-            "user_id" => fake()->unique()->numberBetween($number_of_example_emails,User::count()),
+            "user_id" => fake()->unique()->numberBetween($number_of_example_emails_plus_one,User::count()),
         ];
     }
 }

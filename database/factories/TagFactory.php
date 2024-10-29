@@ -17,7 +17,7 @@ class TagFactory extends Factory
     public function definition(): array
     {
         return [
-            //really tags are hard-coded since there isnt a need for random tags to be made but im using this to show the functionality still works randomly
+            //really tags are kind of hard-coded since there isnt a need for random tags to be made but im using this to show a many to many relationship in the factories
             "tag_name" => fake()->unique()->randomElement(["cooking","memes","gaming","wholesome"]),
         ];
     }

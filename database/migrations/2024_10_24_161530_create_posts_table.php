@@ -16,13 +16,12 @@ return new class extends Migration
             $table->string("image_location")->nullable();
             $table->boolean("contains_image");
             $table->string("post_title");
-            $table->string("post_text")->nullable();
+            $table->string("post_text");
             $table->bigInteger("user_id")->unsigned();
 
             $table->foreign("user_id")->references("id")->on("users")
             ->onDelete("cascade")->onUpdate("cascade");
             
-            //dont include comment or tag id's because it has many
             $table->timestamps();
         });
     }

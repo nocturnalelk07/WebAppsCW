@@ -20,6 +20,7 @@ class CommentFactory extends Factory
      */
     public function definition(): array
     {
+        //done seperately to use in the contains_image check
         $image = fake()->optional()->imageUrl($width = 640, $height = 480);
         
         return [
