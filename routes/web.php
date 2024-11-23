@@ -1,20 +1,20 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/users', function () {
-    return view('users');
-});
+Route::get('/users', [UserController::class, "index"]);
+
+Route::get("/users/{id}", [UserController::class, "show"])->name("users.show");
 
 Route::get('/test', function () {
     return view('test');
 });
-
 
 Route::get('/dashboard', function () {
     return view('dashboard');
