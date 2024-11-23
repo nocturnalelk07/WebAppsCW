@@ -1,4 +1,4 @@
-@extends("layouts.testLayout")
+@extends("layouts.pageLayout")
 
 @section("title", "Users")
 
