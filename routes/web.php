@@ -9,7 +9,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('home');
+    return view('dashboard');
 });
 //here are the comment routes
 Route::get("/comments", [PostController::class, "index"])->name("comments.index");
@@ -19,15 +19,6 @@ Route::get("/comments/{id}", [PostController::class, "show"])->name("comments.sh
 Route::get("/comments/{id}/edit", [PostController::class, "edit"])->name("comments.edit");
 Route::put("/comments/{id}", [PostController::class, "update"])->name("comments.update");
 Route::delete("/comments/{id}", [PostController::class, "destroy"])->name("comments.destroy");
-
-//here are the email routes
-Route::get("/emails", [PostController::class, "index"])->name("emails.index");
-Route::get("/emails/create", [PostController::class, "create"])->name("emails.create");
-Route::post("/emails", [PostController::class, "store"])->name("emails.store");
-Route::get("/emails/{id}", [PostController::class, "show"])->name("emails.show");
-Route::get("/emails/{id}/edit", [PostController::class, "edit"])->name("emails.edit");
-Route::put("/emails/{id}", [PostController::class, "update"])->name("emails.update");
-Route::delete("/emails/{id}", [PostController::class, "destroy"])->name("emails.destroy");
 
 //here are the post routes
 Route::get("/posts", [PostController::class, "index"])->name("posts.index");

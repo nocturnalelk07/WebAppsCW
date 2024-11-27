@@ -5,6 +5,6 @@
 @section("content")
     <ul>
         <li>Name: {{$user->name}} </li>
-        <li>email: {{$user->find($user->id)->email->email}}</li>  
+        <li>email: {{$user->email}}</li>  
     </ul>
 @endsection
