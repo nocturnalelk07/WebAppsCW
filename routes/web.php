@@ -12,13 +12,13 @@ Route::get('/', function () {
     return view('dashboard');
 });
 //here are the comment routes
-Route::get("/comments", [PostController::class, "index"])->name("comments.index");
-Route::get("/comments/create", [PostController::class, "create"])->name("comments.create");
-Route::post("/comments", [PostController::class, "store"])->name("comments.store");
-Route::get("/comments/{id}", [PostController::class, "show"])->name("comments.show");
-Route::get("/comments/{id}/edit", [PostController::class, "edit"])->name("comments.edit");
-Route::put("/comments/{id}", [PostController::class, "update"])->name("comments.update");
-Route::delete("/comments/{id}", [PostController::class, "destroy"])->name("comments.destroy");
+Route::get("/comments", [CommentController::class, "index"])->name("comments.index");
+Route::get("/comments/create", [CommentController::class, "create"])->name("comments.create");
+Route::post("/comments", [CommentController::class, "store"])->name("comments.store");
+Route::get("/comments/{id}", [CommentController::class, "show"])->name("comments.show");
+Route::get("/comments/{id}/edit", [CommentController::class, "edit"])->name("comments.edit");
+Route::put("/comments/{id}", [CommentController::class, "update"])->name("comments.update");
+Route::delete("/comments/{id}", [CommentController::class, "destroy"])->name("comments.destroy");
 
 //here are the post routes
 Route::get("/posts", [PostController::class, "index"])->name("posts.index");
@@ -30,22 +30,22 @@ Route::put("/posts/{id}", [PostController::class, "update"])->name("posts.update
 Route::delete("/posts/{id}", [PostController::class, "destroy"])->name("posts.destroy");
 
 //here are the tag routes
-Route::get("/tags", [PostController::class, "index"])->name("tags.index");
-Route::get("/tags/create", [PostController::class, "create"])->name("tags.create");
-Route::post("/tags", [PostController::class, "store"])->name("tags.store");
-Route::get("/tags/{id}", [PostController::class, "show"])->name("tags.show");
-Route::get("/tags/{id}/edit", [PostController::class, "edit"])->name("tags.edit");
-Route::put("/tags/{id}", [PostController::class, "update"])->name("tags.update");
-Route::delete("/tags/{id}", [PostController::class, "destroy"])->name("tags.destroy");
+Route::get("/tags", [TagController::class, "index"])->name("tags.index");
+Route::get("/tags/create", [TagController::class, "create"])->name("tags.create");
+Route::post("/tags", [TagController::class, "store"])->name("tags.store");
+Route::get("/tags/{id}", [TagController::class, "show"])->name("tags.show");
+Route::get("/tags/{id}/edit", [TagController::class, "edit"])->name("tags.edit");
+Route::put("/tags/{id}", [TagController::class, "update"])->name("tags.update");
+Route::delete("/tags/{id}", [TagController::class, "destroy"])->name("tags.destroy");
 
 //here are the user routes
 Route::get("/users", [UserController::class, "index"])->name("users.index");
-Route::get("/users/create", [PostController::class, "create"])->name("users.create");
-Route::post("/users", [PostController::class, "store"])->name("users.store");
+Route::get("/users/create", [UserController::class, "create"])->name("users.create");
+Route::post("/users", [UserController::class, "store"])->name("users.store");
 Route::get("/users/{id}", [UserController::class, "show"])->name("users.show");
-Route::get("/users/{id}/edit", [PostController::class, "edit"])->name("users.edit");
-Route::put("/users/{id}", [PostController::class, "update"])->name("users.update");
-Route::delete("/users/{id}", [PostController::class, "destroy"])->name("users.destroy");
+Route::get("/users/{id}/edit", [UserController::class, "edit"])->name("users.edit");
+Route::put("/users/{id}", [UserController::class, "update"])->name("users.update");
+Route::delete("/users/{id}", [UserController::class, "destroy"])->name("users.destroy");
 
 
 Route::get('/dashboard', function () {
