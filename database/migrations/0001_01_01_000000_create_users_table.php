@@ -11,10 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
+        //the required length in the laravel authentication documentation (could not get the variable to work in the length)
+        $remember_token_length = 100;
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
             $table->string('password');
+            $table->string("remember_token", length: 100)->nullable();
             $table->timestamps();
         });
 
