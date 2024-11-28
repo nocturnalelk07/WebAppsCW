@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Tag;
+use App\Models\User;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -22,7 +24,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view("posts.create");
+        $tags = Tag::all();
+        return view("posts.create", ["tags" => $tags]);
     }
 
     /**
@@ -56,6 +59,13 @@ class PostController extends Controller
         $p->user_id = $userId;
         $p->save();
 
+        $tags = $request["tag"];
+        foreach($tags as $tag) {
+            $p->tags()->attach($tag);
+        }
+        //try this after seeing if above works
+        //$p->tags()->attach($tags);
+
         //we still need to add tags and images to posts
         session()->flash("message", "your post was created!");
         return redirect()->route("posts.index");
@@ -66,8 +76,11 @@ class PostController extends Controller
      */
     public function show(string $id)
     {
+        
         $post = Post::findOrFail($id);
-        return view("posts.show", ["post" => $post]);
+        $posterName = User::find($post->user_id)->name;
+        $tags = $post->tags;
+        return view("posts.show", ["post" => $post, "tags" => $tags, "user" => $posterName,]);
     }
 
     /**

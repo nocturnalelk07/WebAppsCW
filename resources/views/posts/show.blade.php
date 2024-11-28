@@ -4,8 +4,12 @@
 
 @section("content")
     <ul>
-        <li>title: {{$post->post_title}} </li>
-        <li>text: {{$post->post_text}} </li>
-        <li>user: {{$post->user_id}} </li>
+        <li><b>title:</b> {{$post->post_title}} </li>
+        <li><b>text:</b> {{$post->post_text}} </li>
+        <li><b>user:</b> {{$user}} </li>
+        <li><b>post tags: </b></li>
+        @foreach($tags as $tag)
+            <li> {{$tag->tag_name}} </li>
+        @endforeach
     </ul>
 @endsection
