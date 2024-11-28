@@ -6,6 +6,10 @@
     <body>
         <h1>@yield("title") Page</h1>
 
+        @if(session("message"))
+        <p><b>{{session("message")}}</b></p>
+        @endif()
+
         @if($errors->any())
         <div>
             Errors:
@@ -17,7 +21,7 @@
         </div>
         @endif
         </div>
-        
+
         <div>
             @yield("content")
         </div>
