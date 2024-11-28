@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use Auth;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -29,10 +30,35 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        //we get the user who is posting so we know who to attribute the post to
+        $userId = Auth::user()->id;
+
+        //here we assume the post has no image for now
+        $image = null;
+
+        //checks if the post has an image and assigns the boolean value
+        $postHasImage = true;
+        if($image == null) {
+            $postHasImage = false;
+        }
+
         $validData = $request->validate([
-            "name" => "required|max:255",
-        //...
-        ]);
+            "title" => "required|max:255",
+            "text" => "required|max:4500",
+        ]); 
+
+        //creating the post in the database here
+        $p = new Post;
+        $p->image_location = $image;
+        $p->contains_image = $postHasImage;
+        $p->post_title = $validData["title"];
+        $p->post_text = $validData["text"];
+        $p->user_id = $userId;
+        $p->save();
+
+        //we still need to add tags and images to posts
+        session()->flash("message", "your post was created!");
+        return redirect()->route("posts.index");
     }
 
     /**
