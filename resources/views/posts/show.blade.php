@@ -14,8 +14,7 @@
         </li>
         <li><b>comments:</b>
             @foreach($comments as $comment)
-            <li><b>user: </b> {{User::find($comment->user_id)->name}}</li>
-                <li><b>text: </b> {{$comment->comment_text}}</li>
+                <p>| <a href="{{ route("comments.show", ["id" => $comment->id]) }}">{{$comment->comment_text}}</p>
             @endforeach
         </li>
     </ul>
