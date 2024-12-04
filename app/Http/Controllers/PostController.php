@@ -80,7 +80,8 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
         $posterName = User::find($post->user_id)->name;
         $tags = $post->tags;
-        return view("posts.show", ["post" => $post, "tags" => $tags, "user" => $posterName,]);
+        $comments = $post->comments;
+        return view("posts.show", ["post" => $post, "tags" => $tags, "user" => $posterName, "comments" => $comments]);
     }
 
     /**
