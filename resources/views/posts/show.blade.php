@@ -4,9 +4,9 @@
 
 @section("content")
     <ul>
+        <li><b>OP:</b> <a href="{{ route("users.show", ["id" => $post->user_id])}}">{{$post->user->name}}</a></li>
         <li><b>title:</b> {{$post->post_title}} </li>
         <li><b>text:</b> {{$post->post_text}} </li>
-        <li><b>user:</b> {{$user}} </li>
         <li><b>post tags:</b><br>
             @foreach($tags as $tag)
                 {{$tag->tag_name}} <br>
@@ -14,7 +14,9 @@
         </li>
         <li><b>comments:</b>
             @foreach($comments as $comment)
-                <p><b>|</b> <a href="{{ route("comments.show", ["id" => $comment->id])}}">{{$comment->comment_text}}</p>
+                <p>| <a href="{{ route("users.show", ["id" => $comment->user_id])}}">{{$comment->user->name}}</a></p>
+                <p><b>|</b> <a href="{{ route("comments.show", ["id" => $comment->id])}}">{{$comment->comment_text}}</a><br></p>
+                <p><b>--------------------------------------------------------</b></p>
             @endforeach
             <a href="{{ route("comments.create", ["id" => $post->id])}}"> make your own comment!</a>
         </li>

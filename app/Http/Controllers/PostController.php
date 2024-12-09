@@ -78,10 +78,9 @@ class PostController extends Controller
     {
         
         $post = Post::findOrFail($id);
-        $posterName = User::find($post->user_id)->name;
         $tags = $post->tags;
         $comments = $post->comments;
-        return view("posts.show", ["post" => $post, "tags" => $tags, "user" => $posterName, "comments" => $comments]);
+        return view("posts.show", ["post" => $post, "tags" => $tags, "comments" => $comments]);
     }
 
     /**
@@ -89,7 +88,7 @@ class PostController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        //allow users to edit posts
     }
 
     /**

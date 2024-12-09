@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\Comment;
 use App\Models\User;
+use Auth;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -44,25 +45,24 @@ class CommentController extends Controller
         }
 
         $validData = $request->validate([
-            "text" => "required|max:4500",
+            "text" => "required|max:1000",
         ]); 
 
         //get the id of the post the comment is under
-        $postId = null;
+        $postId = $request->integer("id");
 
         //creating the comment in the database here
         $p = new Comment;
         $p->image_location = $image;
         $p->contains_image = $commentHasImage;
-        $p->comment_title = $validData["title"];
         $p->comment_text = $validData["text"];
         $p->user_id = $userId;
         $p->post_id = $postId;
         $p->save();
 
-        //we still need to add tags and images to comments
+        //we still need to add images to comments
         session()->flash("message", "your comment was created!");
-        return redirect()->route("post.show",["postId" => $postId]);
+        return redirect()->route("posts.show",["id" => $postId]);
     }
 
     /**
