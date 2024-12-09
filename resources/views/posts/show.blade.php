@@ -14,8 +14,9 @@
         </li>
         <li><b>comments:</b>
             @foreach($comments as $comment)
-                <p>| <a href="{{ route("comments.show", ["id" => $comment->id]) }}">{{$comment->comment_text}}</p>
+                <p><b>|</b> <a href="{{ route("comments.show", ["id" => $comment->id])}}">{{$comment->comment_text}}</p>
             @endforeach
+            <a href="{{ route("comments.create", ["id" => $post->id])}}"> make your own comment!</a>
         </li>
     </ul>
 @endsection
