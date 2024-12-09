@@ -76,7 +76,6 @@ class PostController extends Controller
      */
     public function show(string $id)
     {
-        
         $post = Post::findOrFail($id);
         $tags = $post->tags;
         $comments = $post->comments;
@@ -89,6 +88,9 @@ class PostController extends Controller
     public function edit(string $id)
     {
         //allow users to edit posts
+        $post = Post::findOrFail($id);
+        $tags = Tag::all();
+        return view("posts.edit", ["tags" => $tags, "post"=>$post]);
     }
 
     /**
@@ -97,6 +99,35 @@ class PostController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $post = Post::findOrFail($id);
+
+        $validData = $request->validate([
+            "title" => "required|max:255",
+            "text" => "required|max:4500",
+        ]); 
+
+        //we get the user who is posting so we know who to attribute the post to
+        $userId = Auth::user()->id;
+
+          //here we assume the post has no image for now
+        $image = null;
+        
+           //checks if the post has an image and assigns the boolean value
+        $postHasImage = true;
+
+        if($image == null) {
+            $postHasImage = false;
+        }
+
+        $post->image_location = $image;
+        $post->contains_image = $postHasImage;
+        $post->post_title = $validData["title"];
+        $post->post_text = $validData["text"];
+        $post->user_id = $userId;
+        $post->save();
+
+        session()->flash("message", "your post was updated!");
+        return redirect()->route("posts.index");
     }
 
     /**

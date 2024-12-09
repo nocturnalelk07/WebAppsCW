@@ -7,6 +7,7 @@
         <li><b>OP:</b> <a href="{{ route("users.show", ["id" => $post->user_id])}}">{{$post->user->name}}</a></li>
         <li><b>title:</b> {{$post->post_title}} </li>
         <li><b>text:</b> {{$post->post_text}} </li>
+        <li><b>edit post:</b> <a href="{{ route("posts.edit", ["id" => $post->id])}}">edit post</a></p>
         <li><b>post tags:</b><br>
             @foreach($tags as $tag)
                 {{$tag->tag_name}} <br>
