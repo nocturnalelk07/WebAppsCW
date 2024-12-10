@@ -7,6 +7,7 @@ use App\Models\Tag;
 use App\Models\User;
 use Auth;
 use Illuminate\Http\Request;
+use Storage;
 
 class PostController extends Controller
 {
@@ -36,23 +37,23 @@ class PostController extends Controller
         //we get the user who is posting so we know who to attribute the post to
         $userId = Auth::user()->id;
 
-        //here we assume the post has no image for now
-        $image = null;
-
-        //checks if the post has an image and assigns the boolean value
-        $postHasImage = true;
-        if($image == null) {
-            $postHasImage = false;
-        }
-
+        //dd($request->image);
         $validData = $request->validate([
             "title" => "required|max:255",
             "text" => "required|max:4500",
+            "image" => "image",
         ]); 
+
+        //here store the supplied image and get the file path if an image has been supplied
+        $postHasImage;
+        if($request->file("image") != null) {
+        $imagePath =  $request->file("image")->store("images", "public");
+        $postHasImage = true;
+        }    
 
         //creating the post in the database here
         $p = new Post;
-        $p->image_location = $image;
+        $p->image_location = $imagePath;
         $p->contains_image = $postHasImage;
         $p->post_title = $validData["title"];
         $p->post_text = $validData["text"];
@@ -62,13 +63,10 @@ class PostController extends Controller
         $tags = $request["tag"];
         if($tags != null) {
             foreach($tags as $tag) {
-                $post->tags()->attach($tag);
+                $p->tags()->attach($tag);
             }
         }
-        //try this after seeing if above works
-        //$p->tags()->attach($tags);
 
-        //we still need to add tags and images to posts
         session()->flash("message", "your post was created!");
         return redirect()->route("posts.index");
     }
