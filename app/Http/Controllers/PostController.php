@@ -98,16 +98,34 @@ class PostController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
         $post = Post::findOrFail($id);
+        $op = $post->user_id;
+        $loggedInUser = Auth::user();
+        $currentUserRole = $loggedInUser->role->role;
+        $canEdit = false;
+
+        
+        if(($currentUserRole == "admin") || ($loggedInUser->id == $op)) {
+            $canEdit = true;
+        }
+        if($canEdit) {
+
+        //we want the user to be able to only edit parts of a post so we have to fill in the bits they leave empty for them
+        $inputTitle = $request->title;
+        $inputText = $request->text;
+        
+        if($inputTitle == null) {
+            $request->request->add(["title" => ($post->post_title)]);
+        }
+
+        if($inputText == null) {
+            $request->request->add(["text" => ($post->post_text)]);
+        }
 
         $validData = $request->validate([
             "title" => "required|max:255",
             "text" => "required|max:4500",
         ]); 
-
-        //we get the user who is posting so we know who to attribute the post to
-        $userId = Auth::user()->id;
 
           //here we assume the post has no image for now
         $image = null;
@@ -123,10 +141,21 @@ class PostController extends Controller
         $post->contains_image = $postHasImage;
         $post->post_title = $validData["title"];
         $post->post_text = $validData["text"];
-        $post->user_id = $userId;
+        //dont want to change the poster if someone else (eg an admin) edits
+        $post->user_id = $op;
         $post->save();
 
+        $post->tags()->detach();
+        $tags = $request["tag"];
+        foreach($tags as $tag) {
+            $post->tags()->attach($tag);
+        }
+
         session()->flash("message", "your post was updated!");
+
+        } else {
+        session()->flash("message", "you do not have permission to edit this post!");
+        }
         return redirect()->route("posts.index");
     }
 
