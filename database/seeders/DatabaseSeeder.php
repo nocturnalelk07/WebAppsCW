@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(TagTableSeeder::class);
         $this->call(PostTableSeeder::class);
         $this->call(CommentTableSeeder::class);
+        $this->call(RoleTableSeeder::class);
 
         //this populates the post_tag pivot table giving each post 1-3 tags randomly
         $tags = Tag::all();
