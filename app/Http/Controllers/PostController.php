@@ -8,6 +8,9 @@ use App\Models\User;
 use Auth;
 use Illuminate\Http\Request;
 use Storage;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
 
 class PostController extends Controller
 {
@@ -16,8 +19,12 @@ class PostController extends Controller
      */
     public function index()
     {
+        /*
         $posts = Post::all();
         return view("posts.index", ["posts" => $posts]);
+        */
+
+        return view('posts.index', ['posts' => DB::table('posts')->paginate(15)]);
     }
 
     /**
