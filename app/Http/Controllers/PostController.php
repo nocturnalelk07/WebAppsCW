@@ -60,8 +60,10 @@ class PostController extends Controller
         $p->save();
 
         $tags = $request["tag"];
-        foreach($tags as $tag) {
-            $p->tags()->attach($tag);
+        if($tags != null) {
+            foreach($tags as $tag) {
+                $post->tags()->attach($tag);
+            }
         }
         //try this after seeing if above works
         //$p->tags()->attach($tags);
@@ -101,7 +103,7 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
         $op = $post->user_id;
         $loggedInUser = Auth::user();
-        $currentUserRole = $loggedInUser->role->role;
+        $currentUserRole = $loggedInUser->role->role_role;
         $canEdit = false;
 
         
@@ -141,16 +143,17 @@ class PostController extends Controller
         $post->contains_image = $postHasImage;
         $post->post_title = $validData["title"];
         $post->post_text = $validData["text"];
-        //dont want to change the poster if someone else (eg an admin) edits
+        //dont want to change the op if someone else (eg an admin) edits
         $post->user_id = $op;
         $post->save();
 
-        $post->tags()->detach();
         $tags = $request["tag"];
-        foreach($tags as $tag) {
-            $post->tags()->attach($tag);
+        if($tags != null) {
+            $post->tags()->detach();
+            foreach($tags as $tag) {
+                $post->tags()->attach($tag);
+            }
         }
-
         session()->flash("message", "your post was updated!");
 
         } else {

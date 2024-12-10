@@ -17,6 +17,7 @@
             @foreach($comments as $comment)
                 <p>| <a href="{{ route("users.show", ["id" => $comment->user_id])}}">{{$comment->user->name}}</a></p>
                 <p><b>|</b> <a href="{{ route("comments.show", ["id" => $comment->id])}}">{{$comment->comment_text}}</a><br></p>
+                <p><b>|</b> <a href="{{ route("comments.edit", ["id" => $comment->id])}}">edit</a><br></p>
                 <p><b>--------------------------------------------------------</b></p>
             @endforeach
             <a href="{{ route("comments.create", ["id" => $post->id])}}"> make your own comment!</a>

@@ -78,7 +78,9 @@ class CommentController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        //allow users to edit comments
+        $comment = Comment::findOrFail($id);
+        return view("comments.edit", ["comment"=>$comment]);
     }
 
     /**
@@ -86,9 +88,58 @@ class CommentController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
-    }
+        $comment = Comment::findOrFail($id);
+        $op = $comment->user_id;
+        $loggedInUser = Auth::user();
+        $currentUserRole = $loggedInUser->role->role_role;
+        $canEdit = false;
 
+        if(($currentUserRole == "admin") || ($loggedInUser->id == $op)) {
+            $canEdit = true;
+        }
+
+        if($canEdit) {
+        //we want the user to be able to only edit parts of a comment if we add more fields so we have to fill in the bits they leave empty for them
+        $inputText = $request->text;
+
+        if($inputText == null) {
+            $request->request->add(["text" => ($comment->comment_text)]);
+        }
+
+        $validData = $request->validate([
+            "text" => "required|max:1000",
+        ]); 
+
+          //here we assume the post has no image for now
+        $image = null;
+        
+           //checks if the post has an image and assigns the boolean value
+        $commentHasImage = true;
+
+        if($image == null) {
+            $commentHasImage = false;
+        }
+
+        $comment->image_location = $image;
+        $comment->contains_image = $commentHasImage;
+        $comment->comment_text = $validData["text"];
+        //dont want to change the op if someone else (eg an admin) edits
+        $comment->save();
+
+        $tags = $request["tag"];
+        if($tags != null) {
+            $post->tags()->detach();
+            foreach($tags as $tag) {
+                $post->tags()->attach($tag);
+            }
+        }
+        session()->flash("message", "your comment was updated!");
+
+        } else {
+        session()->flash("message", "you do not have permission to edit this post!");
+        }
+        return redirect()->route("posts.show", ["id" => $comment->post_id]);
+    }
     /**
      * Remove the specified resource from storage.
      */
