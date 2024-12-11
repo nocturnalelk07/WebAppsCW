@@ -13,7 +13,7 @@ Route::get('/', function () {
 });
 //here are the comment routes
 Route::get("/comments", [CommentController::class, "index"])->name("comments.index");
-Route::get("/comments/create/{id}", [CommentController::class, "create"])->name("comments.create");
+Route::get("/comments/create/{id}/{type}", [CommentController::class, "create"])->name("comments.create");
 Route::post("/comments", [CommentController::class, "store"])->name("comments.store");
 Route::get("/comments/{id}", [CommentController::class, "show"])->name("comments.show");
 Route::get("/comments/{id}/edit", [CommentController::class, "edit"])->name("comments.edit");

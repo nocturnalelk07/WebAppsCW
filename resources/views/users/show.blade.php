@@ -13,9 +13,11 @@
             @endforeach
         <li>user comments: </li>
         @foreach($comments as $comment)
-                <p><b>|</b> post title: <a href="{{ route("posts.show", ["id" => $comment->post_id])}}">{{$comment->post->post_title}}</a></p>
+        @if($comment->commentable_type == "App\Models\Post")
+                <p><b>|</b> post title: <a href="{{ route("posts.show", ["id" => $comment->commentable_id])}}">{{$comment->commentable->post_title}}</a></p>
                 <p><b>|</b> {{$comment->comment_text}}</a></p>
                 <p><b>--------------------------------------------------------</b></p>
+                @endif
             @endforeach
     </ul>
 @endsection

@@ -17,11 +17,10 @@ return new class extends Migration
             $table->boolean("contains_image");
             $table->string("comment_text");
             $table->bigInteger("user_id")->unsigned();
-            $table->bigInteger("post_id")->unsigned();
+            $table->bigInteger("commentable_id")->unsigned();
+            $table->string("commentable_type");
 
             $table->foreign("user_id")->references("id")->on("users")
-            ->onDelete("cascade")->onUpdate("cascade");
-            $table->foreign("post_id")->references("id")->on("posts")
             ->onDelete("cascade")->onUpdate("cascade");
 
             $table->timestamps();

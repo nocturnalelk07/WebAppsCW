@@ -23,10 +23,23 @@ class CommentController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create($id)
+    public function create($id, $type)
     {
-        $postId = Post::findOrFail($id)->id;
-        return view("comments.create", ["postId" => $postId]);
+        $commentableId;
+        $cancelId = 1;
+        //gets the polymorphic type of the comment being made and also gets the post id to return to if the user uses the cancel button
+        if($type == "App\Models\Post"){
+            $post = Post::findOrFail($id);
+            $commentableId = $post->id;
+            $cancelId = $commentableId;
+        } elseif($type == "App\Models\Comment") {
+            $comment = Comment::findOrFail($id);
+            $commentableId = $comment->id;
+            $post = Post::findOrFail($comment->commentable_id);
+            $cancelId = $post->id;
+        }
+
+        return view("comments.create", ["commentableId" => $commentableId, "type" => $type, "cancelId" => $cancelId]);
     }
 
     /**
@@ -51,7 +64,7 @@ class CommentController extends Controller
         ]); 
 
         //get the id of the post the comment is under
-        $postId = $request->integer("id");
+        $requestId = $request->integer("id");
 
         //creating the comment in the database here
         $c = new Comment;
@@ -59,18 +72,19 @@ class CommentController extends Controller
         $c->contains_image = $commentHasImage;
         $c->comment_text = $validData["text"];
         $c->user_id = $userId;
-        $c->post_id = $postId;
+        $c->commentable_id = $requestId;
+        $c->commentable_type = $request->string("type");
         $c->save();
 
         //now we can add a notification
         
-        $post = Post::findOrFail($postId);
+        $post = Post::findOrFail($requestId);
         $postOP = $post->user;
         $postOP->notify(new RepliedTo());
 
         //we still need to add images to comments
         session()->flash("message", "your comment was created!");
-        return redirect()->route("posts.show",["id" => $postId]);
+        return redirect()->route("posts.show",["id" => $requestId]);
     }
 
     /**
