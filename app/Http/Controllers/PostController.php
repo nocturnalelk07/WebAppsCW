@@ -19,12 +19,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        /*
-        $posts = Post::all();
-        return view("posts.index", ["posts" => $posts]);
-        */
-
-        return view('posts.index', ['posts' => DB::table('posts')->paginate(10)]);
+        $h = app()->make("ApiHandler");
+        return view('posts.index', ['posts' => DB::table('posts')->paginate(10), "joke" => $h->getJoke()]);
     }
 
     /**
@@ -53,10 +49,14 @@ class PostController extends Controller
 
         //here store the supplied image and get the file path if an image has been supplied
         $postHasImage;
+        
         if($request->file("image") != null) {
         $imagePath =  $request->file("image")->store("images", "public");
         $postHasImage = true;
-        }    
+        } else {
+            $imagePath = null;
+            $postHasImage = false;
+        }
 
         //creating the post in the database here
         $p = new Post;

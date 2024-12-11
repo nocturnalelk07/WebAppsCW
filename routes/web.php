@@ -7,6 +7,12 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use App\ApiHandler;
+
+//service container for api requests
+app()->singleton("ApiHandler", function ($app) {
+    return new ApiHandler();
+});
 
 Route::get('/', function () {
     return view('dashboard');

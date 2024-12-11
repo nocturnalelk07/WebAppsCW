@@ -18,6 +18,9 @@
                     <x-nav-link :href="route('posts.index')" :active="request()->routeIs('posts.index')">
                         {{ __('Posts') }}
                     </x-nav-link>
+                    <x-nav-link class="font-semibold text-xl text-gray-800 leading-tight">
+                        {{__(app()->make("ApiHandler")->getJoke())}}
+                    </x-nav-link>
                 </div>
             </div>
 
