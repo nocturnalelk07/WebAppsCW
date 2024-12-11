@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\Comment;
 use App\Models\User;
+use App\Notifications\RepliedTo;
 use Auth;
 use Illuminate\Http\Request;
+
 
 class CommentController extends Controller
 {
@@ -52,13 +54,19 @@ class CommentController extends Controller
         $postId = $request->integer("id");
 
         //creating the comment in the database here
-        $p = new Comment;
-        $p->image_location = $image;
-        $p->contains_image = $commentHasImage;
-        $p->comment_text = $validData["text"];
-        $p->user_id = $userId;
-        $p->post_id = $postId;
-        $p->save();
+        $c = new Comment;
+        $c->image_location = $image;
+        $c->contains_image = $commentHasImage;
+        $c->comment_text = $validData["text"];
+        $c->user_id = $userId;
+        $c->post_id = $postId;
+        $c->save();
+
+        //now we can add a notification
+        
+        $post = Post::findOrFail($postId);
+        $postOP = $post->user;
+        $postOP->notify(new RepliedTo());
 
         //we still need to add images to comments
         session()->flash("message", "your comment was created!");
