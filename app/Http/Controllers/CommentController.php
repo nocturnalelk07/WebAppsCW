@@ -78,13 +78,13 @@ class CommentController extends Controller
 
         //now we can add a notification
         
-        $post = Post::findOrFail($requestId);
+        $post = Post::findOrFail($request->returnId);
         $postOP = $post->user;
         $postOP->notify(new RepliedTo());
 
         //we still need to add images to comments
         session()->flash("message", "your comment was created!");
-        return redirect()->route("posts.show",["id" => $requestId]);
+        return redirect()->route("posts.show",["id" => $request->returnId]);
     }
 
     /**

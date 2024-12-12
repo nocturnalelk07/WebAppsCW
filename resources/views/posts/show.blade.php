@@ -26,7 +26,7 @@
                 
                 @foreach($comment->comments as $child)
                 <p>     -----| <a href="{{ route("users.show", ["id" => $child->user_id])}}">{{$child->user->name}}</a></p>
-                <p><b>  -----|</b> <a href="{{ route("comments.show", ["id" => $child->id])}}">{{$child->comment_text}}</a><br></p>
+                <p><b>  -----|</b>{{$child->comment_text}}</a><br></p>
                 <p><b>  -----|</b> <a href="{{ route("comments.edit", ["id" => $child->id])}}">edit</a><br></p>
                 <p><b>--------------------------------------------------------</b></p>
                 @endforeach

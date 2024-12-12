@@ -9,6 +9,7 @@
         <p>add image functionality here</P>
         <input type = "hidden" name = "id" value = {{$commentableId}}>
         <input type = "hidden" name = "type" value = {{$type}}>
+        <input type = "hidden" name = "returnId" value = {{$cancelId}}>
         <input type = "submit" value = "submit">
 
         <a href="{{ route("posts.show", ["id" =>$cancelId]) }}">Cancel</a>
